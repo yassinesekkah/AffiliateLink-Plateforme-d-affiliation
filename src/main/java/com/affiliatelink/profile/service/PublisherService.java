@@ -1,6 +1,7 @@
 package com.affiliatelink.profile.service;
 
 import com.affiliatelink.common.exception.EmailAlreadyExistsException;
+import com.affiliatelink.common.exception.ResourceNotFoundException;
 import com.affiliatelink.profile.dto.CreatePublisherRequest;
 import com.affiliatelink.profile.dto.CreatePublisherResponse;
 import com.affiliatelink.profile.entity.Publisher;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PublisherService {
@@ -66,5 +68,18 @@ public class PublisherService {
             publisherResponses.add(publisherResponse);
         }
         return publisherResponses;
+    }
+
+    public CreatePublisherResponse findById(Long id){
+
+        Optional<Publisher> publisherOptional = publisherRepository.findById(id);
+
+        if(publisherOptional.isEmpty()){
+            throw new ResourceNotFoundException("publisher not found");
+        }
+
+        Publisher publisher = publisherOptional.get();
+
+        return toResponse(publisher);
     }
 }
