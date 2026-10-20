@@ -8,10 +8,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,5 +36,13 @@ public class PublisherController {
         List<CreatePublisherResponse> publishers = publisherService.findAll();
 
         return ResponseEntity.ok(publishers);
+    }
+
+    @GetMapping("/api/publishers/{id}")
+    public ResponseEntity<CreatePublisherResponse> findById(@PathVariable(name = "id") Long id){
+
+        CreatePublisherResponse publisher = publisherService.findById(id);
+
+        return ResponseEntity.ok(publisher);
     }
 }
