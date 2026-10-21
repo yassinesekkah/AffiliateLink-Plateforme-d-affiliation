@@ -1,6 +1,7 @@
 package com.affiliatelink.common.handler;
 
 import com.affiliatelink.common.exception.EmailAlreadyExistsException;
+import com.affiliatelink.common.exception.InvalidStatusTransitionException;
 import com.affiliatelink.common.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +48,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(errors);
+    }
+
+    @ExceptionHandler(InvalidStatusTransitionException.class)
+    public ResponseEntity<String> handleInvalidTransition(InvalidStatusTransitionException e){
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(e.getMessage());
     }
 }
