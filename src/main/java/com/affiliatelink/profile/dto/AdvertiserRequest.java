@@ -9,6 +9,6 @@ public record AdvertiserRequest(
         @NotBlank @Email String email,
         @NotBlank @Size(max=55) String companyName,
         @Size(max = 55) String sector,
-        @Size(max = 55) String website
+        @Size(max = 255) String website
 ) {
 }
