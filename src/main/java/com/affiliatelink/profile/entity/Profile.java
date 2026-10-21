@@ -1,5 +1,6 @@
 package com.affiliatelink.profile.entity;
 
+import com.affiliatelink.common.exception.InvalidStatusTransitionException;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -62,7 +63,7 @@ public abstract class Profile {
         }
 
         else{
-            throw new IllegalStateException(
+            throw new InvalidStatusTransitionException(
                     "Transition de statut non autorisée"
             );
         }
