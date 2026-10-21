@@ -1,6 +1,7 @@
 package com.affiliatelink.profile.service;
 
 import com.affiliatelink.common.exception.EmailAlreadyExistsException;
+import com.affiliatelink.common.exception.ResourceNotFoundException;
 import com.affiliatelink.profile.dto.AdvertierResponse;
 import com.affiliatelink.profile.dto.AdvertiserRequest;
 import com.affiliatelink.profile.entity.Advertiser;
@@ -55,14 +56,16 @@ public class AdvertiserService {
 
     public List<AdvertierResponse> findAll(){
 
-        List<Advertiser> advertisers = advertiserRepository.findAll();
+        return advertiserRepository.findAll().stream()
+                .map(ad -> toResponse(ad))
+                .toList();
+    }
 
-        List<AdvertierResponse> advertierResponses = new ArrayList<>();
+    public AdvertierResponse findById(Long id){
 
-        for(Advertiser advertiser : advertisers){
-            AdvertierResponse advertierResponse = toResponse(advertiser);
-            advertierResponses.add(advertierResponse);
-        }
-        return advertierResponses;
+        Advertiser advertiser = (advertiserRepository.findById(id))
+                .orElseThrow( () -> new ResourceNotFoundException("Advertiser not found"));
+
+        return toResponse(advertiser);
     }
 }
