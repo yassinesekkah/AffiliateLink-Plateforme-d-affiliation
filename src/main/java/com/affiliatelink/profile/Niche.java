@@ -1,4 +1,4 @@
-package com.affiliatelink.profile.entity;
+package com.affiliatelink.profile;
 
 public enum Niche {
 

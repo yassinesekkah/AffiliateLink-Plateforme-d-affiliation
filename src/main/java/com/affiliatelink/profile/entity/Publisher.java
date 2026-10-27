@@ -1,5 +1,6 @@
 package com.affiliatelink.profile.entity;
 
+import com.affiliatelink.profile.Niche;
 import jakarta.persistence.*;
 
 @Entity
