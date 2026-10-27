@@ -2,5 +2,5 @@ package com.affiliatelink.profile;
 
 public interface ProfileApi {
 
-    boolean isActiveAdvertiser(Long advertiserId);
+    AdvertiserVerification verifyAdvertiser (Long advertiserId);
 }

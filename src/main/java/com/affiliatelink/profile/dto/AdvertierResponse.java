@@ -1,7 +1,6 @@
 package com.affiliatelink.profile.dto;
 
 import com.affiliatelink.profile.entity.AccountStatus;
-import com.affiliatelink.profile.entity.Niche;
 
 import java.time.LocalDateTime;
 
