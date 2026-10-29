@@ -40,4 +40,10 @@ public class OfferController {
 
         return offerService.getAll(pageable, niche, advertiserId, tag, keyword);
     }
+
+    @GetMapping("/{id}")
+    public OfferResponse getOfferById(@PathVariable Long id){
+
+        return offerService.getById(id);
+    }
 }

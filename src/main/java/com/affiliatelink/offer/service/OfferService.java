@@ -123,4 +123,14 @@ public class OfferService {
 
         return offers.map(offer -> offerMapper.toResponse(offer));
     }
+
+
+    public OfferResponse getById(Long id){
+        Offer offer = offerRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Offer not found " + id)
+                );
+
+        return offerMapper.toResponse(offer);
+    }
 }
