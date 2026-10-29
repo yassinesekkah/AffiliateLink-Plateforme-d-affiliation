@@ -14,6 +14,8 @@ import com.affiliatelink.profile.Niche;
 import com.affiliatelink.profile.ProfileApi;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.Predicate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -31,6 +33,7 @@ public class OfferService {
     private final ProfileApi profileApi;
     private final OfferMapper offerMapper;
     private final TagRepository tagRepository;
+    private static final Logger log = LoggerFactory.getLogger(OfferService.class);
 
 
     public OfferService(OfferRepository offerRepository, ProfileApi profileApi, OfferMapper offerMapper, TagRepository tagRepository) {
@@ -42,6 +45,9 @@ public class OfferService {
 
     @Transactional
     public OfferResponse create(OfferRequest request){
+
+        log.debug("Starting offer creation for advertiserId={}",
+                request.advertiserId());
 
         ///verifier l'advertiser on le module profile vers public api
         AdvertiserVerification result = profileApi.verifyAdvertiser(request.advertiserId());
@@ -75,6 +81,9 @@ public class OfferService {
 
         ///save on database
         Offer savedOffer = offerRepository.save(offer);
+
+        log.info("Offer created: offerId={}, advertiserId={}",
+                savedOffer.getId(), savedOffer.getAdvertiserId());
 
         return offerMapper.toResponse(savedOffer);
 

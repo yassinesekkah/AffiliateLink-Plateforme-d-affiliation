@@ -1,0 +1,48 @@
+2026-10-29T17:06:21.392+01:00  INFO 5776 --- [AffiliateLink] [main] c.a.AffiliateLinkApplication             : Starting AffiliateLinkApplication using Java 17.0.18 with PID 5776 (C:\Users\pc\Desktop\java_framework\AffiliateLink\target\classes started by pc in C:\Users\pc\Desktop\java_framework\AffiliateLink)
+2026-10-29T17:06:21.399+01:00  INFO 5776 --- [AffiliateLink] [main] c.a.AffiliateLinkApplication             : No active profile set, falling back to 1 default profile: "default"
+2026-10-29T17:06:21.478+01:00  INFO 5776 --- [AffiliateLink] [main] .s.b.d.c.l.DockerComposeLifecycleManager : Using Docker Compose file C:\Users\pc\Desktop\java_framework\AffiliateLink\compose.yaml
+2026-10-29T17:06:22.923+01:00  INFO 5776 --- [AffiliateLink] [main] .s.b.d.c.l.DockerComposeLifecycleManager : There are already Docker Compose services running, skipping startup
+2026-10-29T17:06:24.148+01:00  INFO 5776 --- [AffiliateLink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-29T17:06:24.252+01:00  INFO 5776 --- [AffiliateLink] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 91 ms. Found 5 JPA repository interfaces.
+2026-10-29T17:06:25.074+01:00  INFO 5776 --- [AffiliateLink] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-29T17:06:25.090+01:00  INFO 5776 --- [AffiliateLink] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-29T17:06:25.091+01:00  INFO 5776 --- [AffiliateLink] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-29T17:06:25.153+01:00  INFO 5776 --- [AffiliateLink] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1991 ms
+2026-10-29T17:06:25.720+01:00  INFO 5776 --- [AffiliateLink] [main] org.flywaydb.core.FlywayExecutor         : Database: jdbc:postgresql://127.0.0.1:5433/affiliatelink?ApplicationName=AffiliateLink (PostgreSQL 17.11)
+2026-10-29T17:06:25.857+01:00  INFO 5776 --- [AffiliateLink] [main] o.f.core.internal.command.DbValidate     : Successfully validated 2 migrations (execution time 00:00.060s)
+2026-10-29T17:06:25.934+01:00  INFO 5776 --- [AffiliateLink] [main] o.f.core.internal.command.DbMigrate      : Current version of schema "public": 2
+2026-10-29T17:06:25.947+01:00  INFO 5776 --- [AffiliateLink] [main] o.f.core.internal.command.DbMigrate      : Schema "public" is up to date. No migration necessary.
+2026-10-29T17:06:26.091+01:00  INFO 5776 --- [AffiliateLink] [main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-29T17:06:26.180+01:00  INFO 5776 --- [AffiliateLink] [main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-29T17:06:26.846+01:00  INFO 5776 --- [AffiliateLink] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-29T17:06:26.910+01:00  INFO 5776 --- [AffiliateLink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-29T17:06:26.969+01:00  INFO 5776 --- [AffiliateLink] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3dbbed3e
+2026-10-29T17:06:26.971+01:00  INFO 5776 --- [AffiliateLink] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-29T17:06:27.063+01:00  INFO 5776 --- [AffiliateLink] [main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://127.0.0.1:5433/affiliatelink?ApplicationName=AffiliateLink]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 17.11
+	Default catalog/schema: affiliatelink/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-29T17:06:28.816+01:00  INFO 5776 --- [AffiliateLink] [main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-29T17:06:28.882+01:00  INFO 5776 --- [AffiliateLink] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-29T17:06:29.016+01:00  INFO 5776 --- [AffiliateLink] [main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-29T17:06:29.531+01:00  WARN 5776 --- [AffiliateLink] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-29T17:06:30.251+01:00  INFO 5776 --- [AffiliateLink] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-10-29T17:06:30.263+01:00  INFO 5776 --- [AffiliateLink] [main] o.s.s.config.TaskSchedulerRouter         : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2026-10-29T17:06:30.280+01:00  INFO 5776 --- [AffiliateLink] [main] c.a.AffiliateLinkApplication             : Started AffiliateLinkApplication in 9.568 seconds (process running for 10.518)
+2026-10-29T17:06:51.200+01:00  INFO 5776 --- [AffiliateLink] [http-nio-8080-exec-4] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-29T17:06:51.201+01:00  INFO 5776 --- [AffiliateLink] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-29T17:06:51.204+01:00  INFO 5776 --- [AffiliateLink] [http-nio-8080-exec-4] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+2026-10-29T17:06:51.324+01:00 DEBUG 5776 --- [AffiliateLink] [http-nio-8080-exec-4] c.a.offer.aspect.OfferLoggingAspect      : starting method: getAll
+2026-10-29T17:06:51.965+01:00 DEBUG 5776 --- [AffiliateLink] [http-nio-8080-exec-4] c.a.offer.aspect.OfferLoggingAspect      : Method getAll completed at 640 ms
+2026-10-29T17:06:52.006+01:00  WARN 5776 --- [AffiliateLink] [http-nio-8080-exec-4] ration$PageModule$WarningLoggingModifier : Serializing PageImpl instances as-is is not supported, meaning that there is no guarantee about the stability of the resulting JSON structure!
+	For a stable JSON structure, please use Spring Data's PagedModel (globally via @EnableSpringDataWebSupport(pageSerializationMode = VIA_DTO))
+	or Spring HATEOAS and Spring Data's PagedResourcesAssembler as documented in https://docs.spring.io/spring-data/commons/reference/repositories/core-extensions.html#core.web.pageables.
+
