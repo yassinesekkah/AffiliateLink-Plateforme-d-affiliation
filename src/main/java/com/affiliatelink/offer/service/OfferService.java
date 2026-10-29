@@ -10,10 +10,18 @@ import com.affiliatelink.offer.mapper.OfferMapper;
 import com.affiliatelink.offer.repository.OfferRepository;
 import com.affiliatelink.offer.repository.TagRepository;
 import com.affiliatelink.profile.AdvertiserVerification;
+import com.affiliatelink.profile.Niche;
 import com.affiliatelink.profile.ProfileApi;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.Predicate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -70,5 +78,49 @@ public class OfferService {
 
         return offerMapper.toResponse(savedOffer);
 
+    }
+
+    public Page<OfferResponse> getAll(
+            Pageable pageable,
+            Niche niche,
+            Long advertiserId,
+            String tag,
+            String keyword ){
+
+        Specification<Offer> spec = (root, query, cb) ->{
+
+            List<Predicate> conditions = new ArrayList<>();
+
+            if(niche != null){
+                conditions.add(cb.equal(root.get("niche"), niche));
+            }
+
+            if(advertiserId != null){
+                conditions.add(cb.equal(root.get("advertiserId"), advertiserId));
+            }
+
+            if(keyword != null && !keyword.isBlank()){
+                conditions.add(
+                        cb.like(
+                                cb.lower(root.get("title")),
+                                "%" + keyword.trim().toLowerCase(Locale.ROOT) + "%")
+                );
+            }
+
+            if(tag != null && !tag.isBlank()){
+                Join<Offer, Tag> joinTags = root.join("tags");
+
+                conditions.add(
+                        cb.equal(joinTags.get("name"), tag.trim().toLowerCase(Locale.ROOT) )
+                );
+            }
+
+            return cb.and(conditions.toArray(new Predicate[0]));
+
+        };
+
+       Page<Offer> offers = offerRepository.findAll(spec, pageable);
+
+        return offers.map(offer -> offerMapper.toResponse(offer));
     }
 }
