@@ -142,4 +142,33 @@ public class OfferService {
 
         return offerMapper.toResponse(offer);
     }
+
+    @Transactional
+    public OfferResponse updateOffer(Long id, OfferRequest request) {
+
+        Offer offer = offerRepository.findById(id)
+                .orElseThrow(
+                        () -> new ResourceNotFoundException("Offer not found " + id)
+                );
+
+        offer.setTitle(request.title());
+        offer.setDescription(request.description());
+        offer.setLandingUrl(request.landingUrl());
+        offer.setNiche(request.niche());
+
+        //remplacement des tags
+        offer.getTags().clear();
+
+        if (request.tags() != null) {
+            for (String name : request.tags()) {
+                String cleanName = name.trim().toLowerCase(Locale.ROOT);
+
+                Tag tag = tagRepository.findByName(cleanName)
+                        .orElseGet(() -> tagRepository.save(new Tag(cleanName)));
+
+                offer.getTags().add(tag);
+            }
+        }
+        return offerMapper.toResponse(offer);
+    }
 }

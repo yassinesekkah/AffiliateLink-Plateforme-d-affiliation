@@ -46,4 +46,11 @@ public class OfferController {
 
         return offerService.getById(id);
     }
+
+
+    @PutMapping("/{id}")
+    public OfferResponse updateOffer(@PathVariable Long id, @RequestBody @Valid OfferRequest request){
+
+        return offerService.updateOffer(id, request);
+    }
 }
