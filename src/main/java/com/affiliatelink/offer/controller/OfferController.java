@@ -1,8 +1,11 @@
 package com.affiliatelink.offer.controller;
 
+import com.affiliatelink.offer.dto.CampaignRequest;
+import com.affiliatelink.offer.dto.CampaignResponse;
 import com.affiliatelink.offer.dto.OfferRequest;
 import com.affiliatelink.offer.dto.OfferResponse;
 import com.affiliatelink.offer.entity.Tag;
+import com.affiliatelink.offer.service.CampaignService;
 import com.affiliatelink.offer.service.OfferService;
 import com.affiliatelink.profile.Niche;
 import jakarta.validation.Valid;
@@ -12,15 +15,17 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
 @RequestMapping("/api/offres")
 public class OfferController {
 
     private final OfferService offerService;
+    private final CampaignService campaignService;
 
-
-    public OfferController(OfferService offerService) {
+    public OfferController(OfferService offerService, CampaignService campaignService) {
         this.offerService = offerService;
+        this.campaignService = campaignService;
     }
 
     @PostMapping
@@ -52,5 +57,11 @@ public class OfferController {
     public OfferResponse updateOffer(@PathVariable Long id, @RequestBody @Valid OfferRequest request){
 
         return offerService.updateOffer(id, request);
+    }
+
+    @PostMapping("{offerId}/campaigns")
+    public CampaignResponse createCampaign(@PathVariable Long offerId, @RequestBody @Valid CampaignRequest request){
+
+        return campaignService.create(offerId, request);
     }
 }
