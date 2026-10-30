@@ -122,5 +122,67 @@ public class CampaignService {
         return campaigns.stream().map(cam -> campaignMapper.toResponse(cam))
                 .toList();
     }
+
+    @Transactional
+    public void updateStatus(Long id, CampaignStatus newStatus) {
+
+        Campaign campaign = campaignRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Campaign not found: " + id)
+                );
+
+        CampaignStatus currentStatus = campaign.getStatus();
+
+        boolean validTransition = switch (currentStatus) {
+            case DRAFT -> newStatus == CampaignStatus.ACTIVE;
+
+            case ACTIVE -> newStatus == CampaignStatus.PAUSED
+                    || newStatus == CampaignStatus.ENDED;
+
+            case PAUSED -> newStatus == CampaignStatus.ACTIVE
+                    || newStatus == CampaignStatus.ENDED;
+
+            case ENDED -> false;
+        };
+
+        if (!validTransition) {
+            throw new BusinessConflictException(
+                    "Invalid campaign status transition: "
+                            + currentStatus + " -> " + newStatus
+            );
+        }
+
+        // Une seule campagne ACTIVE par Offer
+        if (newStatus == CampaignStatus.ACTIVE) {
+
+            AdvertiserVerification verification =
+                    profileApi.verifyAdvertiser(
+                            campaign.getOffer().getAdvertiserId()
+                    );
+
+            if (verification != AdvertiserVerification.ACTIVE) {
+                throw new BusinessConflictException(
+                        "Cannot activate campaign: advertiser is not active"
+                );
+            }
+
+            List<Campaign> activeCampaigns =
+                    campaignRepository.findByOfferIdAndStatus(
+                            campaign.getOffer().getId(),
+                            CampaignStatus.ACTIVE
+                    );
+
+            for (Campaign activeCampaign : activeCampaigns) {
+                if (!activeCampaign.getId().equals(id)) {
+                    activeCampaign.changeStatus(CampaignStatus.PAUSED);
+                }
+            }
+        }
+
+        campaign.changeStatus(newStatus);
+
+        log.info("Campaign status changed: campaignId={}, from={}, to={}",
+                id, currentStatus, newStatus);
+    }
 }
 
