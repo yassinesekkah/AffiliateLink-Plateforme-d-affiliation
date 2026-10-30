@@ -16,6 +16,7 @@ public interface OfferMapper {
         return tag.getName();
     }
 
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "campaigns", ignore = true)
