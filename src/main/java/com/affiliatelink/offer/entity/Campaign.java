@@ -115,6 +115,10 @@ public class Campaign {
         return offer;
     }
 
+    public void changeStatus(CampaignStatus newStatus) {
+        this.status = newStatus;
+    }
+
 
 
 }

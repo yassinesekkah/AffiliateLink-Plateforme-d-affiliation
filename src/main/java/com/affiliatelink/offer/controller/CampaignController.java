@@ -1,12 +1,12 @@
 package com.affiliatelink.offer.controller;
 
 import com.affiliatelink.offer.dto.CampaignResponse;
+import com.affiliatelink.offer.dto.CampaignStatusRequest;
 import com.affiliatelink.offer.entity.CampaignStatus;
 import com.affiliatelink.offer.service.CampaignService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +25,14 @@ public class CampaignController {
             @RequestParam(required = false) CampaignStatus status
     ){
         return campaignService.getAll(status);
+    }
+
+    @PatchMapping("/{id}/status")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateStatus(
+            @PathVariable Long id,
+            @Valid @RequestBody CampaignStatusRequest request
+    ) {
+        campaignService.updateStatus(id, request.status());
     }
 }

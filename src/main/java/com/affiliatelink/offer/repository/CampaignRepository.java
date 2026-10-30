@@ -9,4 +9,9 @@ import java.util.List;
 public interface CampaignRepository  extends JpaRepository<Campaign, Long> {
 
     List<Campaign> findByStatus(CampaignStatus status);
+
+    List<Campaign> findByOfferIdAndStatus(
+            Long offerId,
+            CampaignStatus status
+    );
 }
