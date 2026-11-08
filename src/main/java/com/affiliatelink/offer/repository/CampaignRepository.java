@@ -14,4 +14,9 @@ public interface CampaignRepository  extends JpaRepository<Campaign, Long> {
             Long offerId,
             CampaignStatus status
     );
+
+    List<Campaign> findByOfferAdvertiserIdAndStatus(
+            Long advertiserId,
+            CampaignStatus status
+    );
 }

@@ -133,17 +133,31 @@ public class CampaignService {
 
         CampaignStatus currentStatus = campaign.getStatus();
 
-        boolean validTransition = switch (currentStatus) {
-            case DRAFT -> newStatus == CampaignStatus.ACTIVE;
+//        boolean validTransition = switch (currentStatus) {
+//            case DRAFT -> newStatus == CampaignStatus.ACTIVE;
+//
+//            case ACTIVE -> newStatus == CampaignStatus.PAUSED
+//                    || newStatus == CampaignStatus.ENDED;
+//
+//            case PAUSED -> newStatus == CampaignStatus.ACTIVE
+//                    || newStatus == CampaignStatus.ENDED;
+//
+//            case ENDED -> false;
+//        };
 
-            case ACTIVE -> newStatus == CampaignStatus.PAUSED
-                    || newStatus == CampaignStatus.ENDED;
+        boolean validTransition = false;
 
-            case PAUSED -> newStatus == CampaignStatus.ACTIVE
-                    || newStatus == CampaignStatus.ENDED;
-
-            case ENDED -> false;
-        };
+        if(currentStatus == CampaignStatus.DRAFT && newStatus == CampaignStatus.ACTIVE){
+            validTransition = true;
+        }
+        else if(currentStatus == CampaignStatus.ACTIVE &&
+                (newStatus == CampaignStatus.PAUSED || newStatus == CampaignStatus.ENDED)){
+            validTransition = true;
+        }
+        else if (currentStatus == CampaignStatus.PAUSED &&
+                (newStatus == CampaignStatus.ACTIVE || newStatus == CampaignStatus.ENDED)) {
+            validTransition = true;
+        }
 
         if (!validTransition) {
             throw new BusinessConflictException(
@@ -172,6 +186,7 @@ public class CampaignService {
                             CampaignStatus.ACTIVE
                     );
 
+            ///khass nfahmoha 3lach fo9ach ye9dar ykon 3andna had l cas
             for (Campaign activeCampaign : activeCampaigns) {
                 if (!activeCampaign.getId().equals(id)) {
                     activeCampaign.changeStatus(CampaignStatus.PAUSED);
