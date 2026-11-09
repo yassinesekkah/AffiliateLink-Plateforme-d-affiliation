@@ -1,5 +1,6 @@
 package com.affiliatelink.common.handler;
 
+import com.affiliatelink.common.exception.BusinessConflictException;
 import com.affiliatelink.common.exception.EmailAlreadyExistsException;
 import com.affiliatelink.common.exception.InvalidStatusTransitionException;
 import com.affiliatelink.common.exception.ResourceNotFoundException;
@@ -54,6 +55,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleInvalidTransition(InvalidStatusTransitionException e){
 
         return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(e.getMessage());
+    }
+
+    @ExceptionHandler(BusinessConflictException.class)
+    public ResponseEntity<String> handleBusinessConflict(
+            BusinessConflictException e) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(e.getMessage());
     }
 }
