@@ -22,5 +22,6 @@ public class AdminController {
          profileService.updateStatus(id, request);
 
          return ResponseEntity.noContent().build();
+
     }
 }
