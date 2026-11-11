@@ -6,6 +6,7 @@ import com.affiliatelink.offer.entity.CampaignStatus;
 import com.affiliatelink.offer.service.CampaignService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,5 +35,12 @@ public class CampaignController {
             @Valid @RequestBody CampaignStatusRequest request
     ) {
         campaignService.updateStatus(id, request.status());
+    }
+
+    @GetMapping("/{advertiserId}/with_status")
+    public ResponseEntity<Long> withStatus(@PathVariable Long advertiserId,
+                                                             @RequestParam CampaignStatus status){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(campaignService.countByAdvertiserIdAndStatus(advertiserId, status));
     }
 }

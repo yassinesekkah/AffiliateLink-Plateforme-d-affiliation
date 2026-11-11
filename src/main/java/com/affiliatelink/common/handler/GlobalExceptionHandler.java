@@ -5,6 +5,7 @@ import com.affiliatelink.common.exception.EmailAlreadyExistsException;
 import com.affiliatelink.common.exception.InvalidStatusTransitionException;
 import com.affiliatelink.common.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -16,23 +17,23 @@ import java.util.HashMap;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ResponseEntity<String> handleEmailConfli(EmailAlreadyExistsException e){
+    public ResponseEntity<ProblemDetail> handleEmailConfli(EmailAlreadyExistsException e){
 
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
-                .body(e.getMessage());
+                .body(ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage()));
     }
 
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException e){
+    public ResponseEntity<ProblemDetail> handleResourceNotFound(ResourceNotFoundException e){
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
-                .body(e.getMessage());
+                .body(ProblemDetail.forStatusAndDetail(HttpStatus.NOT_FOUND, e.getMessage()));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<Map<String, String>> handleValidation(
+    public ResponseEntity<ProblemDetail> handleValidation(
             MethodArgumentNotValidException ex) {
 
         Map<String, String> errors = new HashMap<>();
@@ -46,9 +47,13 @@ public class GlobalExceptionHandler {
                         )
                 );
 
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.BAD_REQUEST, "Request validation failed");
+        problem.setProperty("errors", errors);
+
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
-                .body(errors);
+                .body(problem);
     }
 
     @ExceptionHandler(InvalidStatusTransitionException.class)

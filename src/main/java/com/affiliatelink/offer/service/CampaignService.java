@@ -123,6 +123,11 @@ public class CampaignService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
+    public long countByAdvertiserIdAndStatus(Long advertiserId, CampaignStatus status) {
+        return campaignRepository.countByAdvertiserIdAndStatus(advertiserId, status);
+    }
+
     @Transactional
     public void updateStatus(Long id, CampaignStatus newStatus) {
 

@@ -3,6 +3,8 @@ package com.affiliatelink.offer.repository;
 import com.affiliatelink.offer.entity.Campaign;
 import com.affiliatelink.offer.entity.CampaignStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -18,5 +20,15 @@ public interface CampaignRepository  extends JpaRepository<Campaign, Long> {
     List<Campaign> findByOfferAdvertiserIdAndStatus(
             Long advertiserId,
             CampaignStatus status
+    );
+
+    @Query("""
+        SELECT COUNT(c) FROM Campaign c
+        WHERE c.offer.advertiserId = :advertiserId
+          AND c.status = :status
+        """)
+    long countByAdvertiserIdAndStatus(
+            @Param("advertiserId") Long advertiserId,
+            @Param("status") CampaignStatus status
     );
 }
