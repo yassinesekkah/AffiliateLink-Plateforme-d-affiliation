@@ -57,10 +57,10 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidStatusTransitionException.class)
-    public ResponseEntity<String> handleInvalidTransition(InvalidStatusTransitionException e){
+    public ResponseEntity<ProblemDetail> handleInvalidTransition(InvalidStatusTransitionException e){
 
         return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(e.getMessage());
+                .body(ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage()));
     }
 
     @ExceptionHandler(BusinessConflictException.class)
