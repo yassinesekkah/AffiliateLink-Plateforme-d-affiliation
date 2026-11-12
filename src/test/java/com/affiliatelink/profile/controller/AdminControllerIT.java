@@ -38,7 +38,7 @@ class AdminControllerIT {
         UpdateProfileStatusRequest request =
                 new UpdateProfileStatusRequest(AccountStatus.ACTIVE);
 
-        // When / Then
+        // When /  Then
         mockMvc.perform(patch("/api/admin/profiles/1/status")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
