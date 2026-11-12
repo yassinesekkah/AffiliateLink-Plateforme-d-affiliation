@@ -1,9 +1,6 @@
 package com.affiliatelink.offer.controller;
 
-import com.affiliatelink.offer.dto.CampaignRequest;
-import com.affiliatelink.offer.dto.CampaignResponse;
-import com.affiliatelink.offer.dto.OfferRequest;
-import com.affiliatelink.offer.dto.OfferResponse;
+import com.affiliatelink.offer.dto.*;
 import com.affiliatelink.offer.entity.Tag;
 import com.affiliatelink.offer.service.CampaignService;
 import com.affiliatelink.offer.service.OfferService;
@@ -13,7 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -60,6 +60,7 @@ public class OfferController {
     }
 
     @PostMapping("{offerId}/campaigns")
+    @ResponseStatus(HttpStatus.CREATED)
     public CampaignResponse createCampaign(@PathVariable Long offerId, @RequestBody @Valid CampaignRequest request){
 
         return campaignService.create(offerId, request);

@@ -7,10 +7,14 @@ import com.affiliatelink.offer.entity.Tag;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface OfferMapper {
 
     OfferResponse toResponse(Offer offer);
+
+    List<OfferResponse> toResponses(List<Offer> offers);
 
     default String map(Tag tag){
         return tag.getName();

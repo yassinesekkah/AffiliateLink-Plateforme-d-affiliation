@@ -4,6 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 logs/
+.sonar-local/
+.sonar/
+.scannerwork/
+/build-*.log
 
 ### STS ###
 .apt_generated
