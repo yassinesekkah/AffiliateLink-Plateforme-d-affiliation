@@ -4,6 +4,7 @@ import com.affiliatelink.common.exception.BusinessConflictException;
 import com.affiliatelink.common.exception.ResourceNotFoundException;
 import com.affiliatelink.offer.dto.OfferRequest;
 import com.affiliatelink.offer.dto.OfferResponse;
+import com.affiliatelink.offer.dto.OfferWithCampaingCount;
 import com.affiliatelink.offer.entity.Offer;
 import com.affiliatelink.offer.entity.Tag;
 import com.affiliatelink.offer.mapper.OfferMapper;

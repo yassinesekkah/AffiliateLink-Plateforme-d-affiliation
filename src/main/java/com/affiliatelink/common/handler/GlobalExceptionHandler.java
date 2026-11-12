@@ -64,11 +64,11 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BusinessConflictException.class)
-    public ResponseEntity<String> handleBusinessConflict(
+    public ResponseEntity<ProblemDetail> handleBusinessConflict(
             BusinessConflictException e) {
 
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
-                .body(e.getMessage());
+                .body(ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage()));
     }
 }

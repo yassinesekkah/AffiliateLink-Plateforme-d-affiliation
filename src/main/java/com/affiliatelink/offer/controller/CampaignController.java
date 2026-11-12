@@ -36,11 +36,4 @@ public class CampaignController {
     ) {
         campaignService.updateStatus(id, request.status());
     }
-
-    @GetMapping("/{advertiserId}/with_status")
-    public ResponseEntity<Long> withStatus(@PathVariable Long advertiserId,
-                                                             @RequestParam CampaignStatus status){
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(campaignService.countByAdvertiserIdAndStatus(advertiserId, status));
-    }
 }

@@ -22,13 +22,5 @@ public interface CampaignRepository  extends JpaRepository<Campaign, Long> {
             CampaignStatus status
     );
 
-    @Query("""
-        SELECT COUNT(c) FROM Campaign c
-        WHERE c.offer.advertiserId = :advertiserId
-          AND c.status = :status
-        """)
-    long countByAdvertiserIdAndStatus(
-            @Param("advertiserId") Long advertiserId,
-            @Param("status") CampaignStatus status
-    );
+
 }
