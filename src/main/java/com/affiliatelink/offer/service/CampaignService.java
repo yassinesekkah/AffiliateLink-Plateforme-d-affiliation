@@ -4,6 +4,7 @@ import com.affiliatelink.common.exception.BusinessConflictException;
 import com.affiliatelink.common.exception.ResourceNotFoundException;
 import com.affiliatelink.offer.dto.CampaignRequest;
 import com.affiliatelink.offer.dto.CampaignResponse;
+import com.affiliatelink.offer.dto.OfferWithCampaingCount;
 import com.affiliatelink.offer.entity.Campaign;
 import com.affiliatelink.offer.entity.CampaignStatus;
 import com.affiliatelink.offer.entity.Offer;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -168,6 +170,12 @@ public class CampaignService {
 
         // Une seule campagne ACTIVE par Offer
         if (newStatus == CampaignStatus.ACTIVE) {
+
+            if (campaign.getEndDate().isBefore(LocalDate.now())) {
+                throw new BusinessConflictException(
+                        "Cannot activate campaign: end date has passed"
+                );
+            }
 
             AdvertiserVerification verification =
                     profileApi.verifyAdvertiser(

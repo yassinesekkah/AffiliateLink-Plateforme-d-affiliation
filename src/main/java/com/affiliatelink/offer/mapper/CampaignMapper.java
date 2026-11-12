@@ -7,11 +7,15 @@ import com.affiliatelink.offer.entity.Offer;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CampaignMapper {
 
     @Mapping(target = "offerId", source = "offer.id")
     CampaignResponse toResponse(Campaign campaign);
+
+    List<CampaignResponse> toResponses(List<Campaign> campaigns);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "status", ignore = true)
