@@ -9,7 +9,7 @@ import org.testcontainers.postgresql.PostgreSQLContainer;
 
 @SpringBootTest(properties = "spring.docker.compose.enabled=false")
 @Testcontainers
-class AffiliateLinkApplicationTests {
+class AffiliateLinkApplicationIT {
 
     @Container
     @ServiceConnection
