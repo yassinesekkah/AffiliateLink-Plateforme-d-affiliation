@@ -31,6 +31,11 @@
         <spring-modulith.version>2.1.1</spring-modulith.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <jacoco.version>0.8.14</jacoco.version>
+        <sonar.projectKey>affiliatelink</sonar.projectKey>
+        <sonar.projectName>AffiliateLink</sonar.projectName>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.exclusions>**/AffiliateLinkApplication.java,**/dto/**,**/config/**,**/configuration/**,**/*Configuration.java</sonar.coverage.exclusions>
     </properties>
     <dependencies>
         <dependency>
@@ -144,6 +149,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>5.2.0.4988</version>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
